@@ -5,7 +5,7 @@
           <td>{{list.bookname}}</td>
           <td>{{list.author}}</td>
           <td>{{list.publisher}}</td>
-          <td><button>删除</button><button @click="bookMore(list.id)">详情</button></td>
+          <td><button @click="bookDel(list.id)">删除</button><button @click="bookMore(list.id)">详情</button></td>
         </tr>
       </tbody>
 </template>
@@ -21,8 +21,11 @@ export default {
   },
   methods: {
     bookMore(id){
-      alert(id)
+      // alert(id)
       this.$emit('bookMore',id)
+    },
+    bookDel(id){
+      this.$emit('bookDel',id)
     }
   }
 
