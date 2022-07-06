@@ -1,10 +1,22 @@
 <template>
-  <div class="my-header">购物车案例</div>
+  <div class="my-header" :style="{background:backgroundColor,color:color}">{{ title }}</div>
 </template>
 
 <script>
 export default {
-
+  props:{
+    title:{
+      type:String,
+      required:true,
+    },
+    backgroundColor:{
+      type:String,
+    },
+    color:{
+      type:String,
+      default:'#fff'//默认值是可以设置可以不设置的
+    }
+  }
 }
 </script>
 

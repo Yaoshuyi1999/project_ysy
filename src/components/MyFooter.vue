@@ -3,22 +3,54 @@
   <div class="my-footer">
     <!-- 全选 -->
     <div class="custom-control custom-checkbox">
-      <input type="checkbox" class="custom-control-input" id="footerCheck">
+      <input 
+      type="checkbox" 
+      class="custom-control-input" 
+      id="footerCheck"
+      v-model="isAll"
+      >
       <label class="custom-control-label" for="footerCheck">全选</label>
     </div>
     <!-- 合计 -->
     <div>
       <span>合计:</span>
-      <span class="price">¥ 0</span>
+      <span class="price">{{allCount}}</span>
     </div>
     <!-- 按钮 -->
-    <button type="button" class="footer-btn btn btn-primary">结算 ( 0 )</button>
+    <button type="button" class="footer-btn btn btn-primary">￥{{allSum}}</button>
   </div>
 </template>
 
 <script>
 export default {
-  
+  computed: {
+    isAll:{
+      set(val){
+        this.$parent.list.forEach((ele)=>{
+          ele.goods_state=val
+        })
+      },
+      get(){
+        return this.$parent.list.every((ele)=>ele.goods_state)
+      }
+    },
+    allCount(){
+      return this.$parent.list.reduce((sum,ele)=>{
+        if(ele.goods_state){
+          sum=sum+ele.goods_count;
+        }
+        return sum
+      },0)
+    },
+    allSum(){
+      return this.$parent.list.reduce((sum,ele)=>{
+        if(ele.goods_state){
+          sum=sum+ele.goods_count*ele.goods_price;
+        }
+        return sum
+      },0)
+    }
+  }
 }
 </script>
 
