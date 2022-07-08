@@ -36,7 +36,7 @@
           </span>
         </td>
         <td>
-          <button class="btn btn-danger btn-sm" @click="del(scope.row.id)">
+          <button class="btn btn-danger btn-sm" @click="del(scope.row.id)" v-show="flag">
             删除
           </button>
         </td>
@@ -55,7 +55,10 @@ export default {
   },
   data () {
     return {
-      list:[],  
+      list:[], 
+      flag:false, 
+      identitys:['admin','ysy','lhr'],
+      identity:'ysy'
     }
   },
   created(){
@@ -65,11 +68,17 @@ export default {
       console.log(res);
       this.list = res.data.data;
     });
+    if(this.identitys.indexOf(this.identity)==-1){
+        this.flag=false
+        return
+      }else{
+        this.flag=true
+      }
   },
   methods: {
     del(id){
-      const index=this.list.findIndex(ele=>ele.id===id)
-      this.list.splice(index,1)
+        const index=this.list.findIndex(ele=>ele.id===id)
+        this.list.splice(index,1)
     },
     enterFn(obj){
       if(obj.inputValue.trim().length ===0){
